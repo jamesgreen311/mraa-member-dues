@@ -24,7 +24,7 @@ const HISTORY_FIELDS_MAP = {
 }
 
 const MD_SETTINGS_FIELDS_MAP = {
-    "payment-method-list" : "a2:a4",
+    "payment-method-list" : "a2:a",
     "dues-by-membership" : {
         "exhibiting" : "c2",
         "associate" : "c3",
@@ -33,4 +33,21 @@ const MD_SETTINGS_FIELDS_MAP = {
     "paypal-transaction-fee" : "d2",
     "dues-begin-date" : "e2",
     "dues-end-date" : "f2"
+}
+
+const SETTINGS_TABLE_NAME = MD_TABLES.settings
+const SETTINGS_TABLE = DUES_DB.getSheetByName(SETTINGS_TABLE_NAME)
+
+function getPaymentMethodList() {
+    let list = SETTINGS_TABLE
+        .getRange(MD_SETTINGS_FIELDS_MAP["payment-method-list"]+SETTINGS_TABLE.getLastRow())
+        .getDisplayValues()
+    return list.map(l => l[0])
+}
+
+function getDuesAmountByMembershipType(type = "exhibiting") {
+    let amount = SETTINGS_TABLE
+        .getRange(MD_SETTINGS_FIELDS_MAP["dues-by-membership"][type])
+        .getDisplayValue()
+    return amount
 }
