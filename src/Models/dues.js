@@ -32,7 +32,7 @@ const MD_SETTINGS_FIELDS_MAP = {
     },
     "paypal-transaction-fee" : "d2",
     "dues-begin-date" : "e2",
-    "dues-end-date" : "f2"
+    "dues-ending-date" : "f2"
 }
 
 const SETTINGS_TABLE_NAME = MD_TABLES.settings
@@ -58,4 +58,20 @@ function getPayPalFee() {
         .getDisplayValue()
     fee = isNaN(fee)?0:fee
     return parseFloat(fee)
+}
+
+function getDuesBeginPeriod() {
+    let date =  SETTINGS_TABLE
+        .getRange(MD_SETTINGS_FIELDS_MAP["dues-begin-date"])
+        .getDisplayValue()
+    
+    return date
+}
+
+function getDuesEndingPeriod() {
+    let date =  SETTINGS_TABLE
+        .getRange(MD_SETTINGS_FIELDS_MAP["dues-ending-date"])
+        .getDisplayValue()
+    
+    return date
 }
