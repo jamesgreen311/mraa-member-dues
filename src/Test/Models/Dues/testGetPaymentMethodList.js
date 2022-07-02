@@ -1,3 +1,8 @@
+function testGetPaymentMethodListRunAll() {
+    testGetPaymentMethodList1(true)
+    testGetPaymentMethodList2(['Cash', 'Check', 'PayPal', 'Awarded'], true)
+}
+
 function testGetPaymentMethodList1(verbose) {
     const list = getPaymentMethodList()
     let expected = 'array' 
@@ -23,9 +28,3 @@ function testGetPaymentMethodList2(expected, verbose) {
     let compare = list.every( ele => expected.includes(ele))
     return console.log( result ? "test %s pass" : "test %s fail", t)
 }
-
-function testGetPaymentMethodListRunAll() {
-    testGetPaymentMethodList1(true)
-    testGetPaymentMethodList2(['Cash', 'Check', 'PayPal', 'Awarded'], true)
-}
-

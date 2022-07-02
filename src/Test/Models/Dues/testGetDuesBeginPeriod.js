@@ -1,3 +1,7 @@
+function testGetDuesBeginPeriodRunAll() {
+    testGetDuesBeginPeriod1("9/1", true)
+}
+
 function testGetDuesBeginPeriod1(expected, verbose) {
     let d = getDuesBeginPeriod()
     let t = 1
@@ -7,8 +11,4 @@ function testGetDuesBeginPeriod1(expected, verbose) {
     }
 
     return console.log((d === expected) ? "test %s pass" : "test %s fail", t)
-}
-
-function testGetDuesBeginPeriodRunAll() {
-    testGetDuesBeginPeriod1("9/1", true)
 }

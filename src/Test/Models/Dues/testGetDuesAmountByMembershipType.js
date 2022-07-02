@@ -1,3 +1,8 @@
+function testGetDuesAmountByMembershipTypeRunAll() {
+    testGetDuesAmountByMembershipType1(true)
+    testGetDuesAmountByMembershipType2('associate', true)
+}
+
 /**
  * Test Get Dues Amount By Membership Type
  * Test 1 : Membership type defaults to exhibiting
@@ -32,9 +37,4 @@ function testGetDuesAmountByMembershipType1(verbose) {
     }
 
     return console.log((amount === expected) ? "test %s pass" : "test %s fail", t)
-}
-
-function testGetDuesAmountByMembershipTypeRunAll() {
-    testGetDuesAmountByMembershipType1(true)
-    testGetDuesAmountByMembershipType2('associate', true)
 }

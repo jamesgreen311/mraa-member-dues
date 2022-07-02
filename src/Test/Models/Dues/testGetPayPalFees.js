@@ -1,3 +1,8 @@
+function testGetPayPalFeesRunAll() {
+    testGetPayPalFees1(2.06, true)
+    testGetPayPalFees2('number', true)
+}
+
 function testGetPayPalFees1(expected, verbose) {
     let d = getPayPalFee()
     let t = 1
@@ -18,10 +23,4 @@ function testGetPayPalFees2(expected, verbose) {
     }
 
     return console.log((typeof d === expected) ? "test %s pass" : "test %s fail", t)
-}
-
-function testGetPayPalFeesRunAll() {
-    testGetPayPalFees1(2.06, true)
-    testGetPayPalFees2('number', true)
-
 }
