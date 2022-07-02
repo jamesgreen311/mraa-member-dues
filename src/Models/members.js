@@ -30,3 +30,14 @@ const M_SETTINGS_FIELDS_MAP = {
     "membership-type-list" : "c2:c",
     "medium" : "f2:f"
 }
+
+const M_SETTINGS_TABLE_NAME = M_TABLES.settings
+const M_SETTINGS_TABLE = MEMBERS_DB.getSheetByName(M_SETTINGS_TABLE_NAME)
+
+function getStatusList() {
+    let list = M_SETTINGS_TABLE
+        .getRange(M_SETTINGS_FIELDS_MAP["status-list"]+M_SETTINGS_TABLE.getLastRow())
+        .getDisplayValues()
+    list = list.map(l => l[0]) // convert from [][] to []
+    return list.filter(l => l!=="") // remove empty array elements
+}
