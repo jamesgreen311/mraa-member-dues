@@ -41,3 +41,11 @@ function getStatusList() {
     list = list.map(l => l[0]) // convert from [][] to []
     return list.filter(l => l!=="") // remove empty array elements
 }
+
+function getMembershipTypeList() {
+    let list = M_SETTINGS_TABLE
+        .getRange(M_SETTINGS_FIELDS_MAP["membership-type-list"]+M_SETTINGS_TABLE.getLastRow())
+        .getDisplayValues()
+    list = list.map(l => l[0]) // convert from [][] to []
+    return list.filter(l => l!=="") // remove empty array elements
+}
