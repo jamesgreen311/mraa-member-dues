@@ -51,3 +51,11 @@ function getDuesAmountByMembershipType(type = "exhibiting") {
         .getDisplayValue()
     return amount
 }
+
+function getPayPalFee() {
+    let fee =  SETTINGS_TABLE
+        .getRange(MD_SETTINGS_FIELDS_MAP["paypal-transaction-fee"])
+        .getDisplayValue()
+    fee = isNaN(fee)?0:fee
+    return parseFloat(fee)
+}
