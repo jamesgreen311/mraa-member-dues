@@ -1,1 +1,0 @@
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbxFxOgTY_4aTgdMkSyIC-DigbDgHSxJ92DzfMsbragDfePNV4r-x4w89PIWHRPKdMhk/exec" + "?q="

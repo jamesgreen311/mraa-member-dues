@@ -11,22 +11,21 @@ ROUTES.path("duesforassociate", getDuesForAssociateResponse)
 ROUTES.path("duesforexhibiting", getDuesForExhibitingResponse)
 
 function doGet(e) {
-    let result = route('get', e.parameter['q'])
-    return respond(JSON.stringify(result, 0, 2))
+    let result = route(e.parameter['q'])
+    let response = JSON.stringify(result)
+    
+    return ContentService
+        .createTextOutput(response)
+        .setMimeType(ContentService.MimeType.JSON)
 }
 
 function doPost(e) {
     let result = route('post', e.parameter['q'])
 }
 
-function respond(response) {
-    return ContentService
-        .createTextOutput(response)
-        .setMimeType(ContentService.MimeType.JSON)
-}
-
 function route(path) {
-    return respond(ROUTES[path]())
+    let result = ROUTES[path]()
+    return result
 }
 
 function getStatusListResponse() {
