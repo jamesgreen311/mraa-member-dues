@@ -9,6 +9,8 @@ ROUTES.path("paymentmethodlist", getPaymentMethodListResponse)
 ROUTES.path("duesforexhibiting", getDuesForExhibitingResponse)
 ROUTES.path("duesforassociate", getDuesForAssociateResponse)
 ROUTES.path("duesforexhibiting", getDuesForExhibitingResponse)
+ROUTES.path("totalmembers", getTotalMembersResponse)
+ROUTES.path("totalexhibitingmembers", getTotalExhibitingMembersResponse)
 
 function doGet(e) {
     let result = route(e.parameter['q'])
@@ -46,4 +48,12 @@ function getDuesForExhibitingResponse() {
 
 function getDuesForAssociateResponse() {
     return getDuesAmountByMembershipType('associate')
+}
+
+function getTotalMembersResponse() {
+    return getTotalMembers("all")
+}
+
+function getTotalExhibitingMembersResponse() {
+    return getTotalMembers("exhibiting")
 }
