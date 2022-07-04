@@ -1,7 +1,8 @@
 const MEMBERS_DB = connect(MEMBERSHIP_ID)
 const M_TABLES = {
     "directory" : "Member Directory",
-    "settings" : "Configuration"
+    "settings" : "Configuration",
+    "dashboard" : "Dashboard"
 }
 
 const DIRECTORY_FIELDS_MAP = {
@@ -31,8 +32,24 @@ const M_SETTINGS_FIELDS_MAP = {
     "medium" : "f2:f"
 }
 
+const M_DASHBOARD_FIELDS_MAP = {
+    "counts" : {
+        "membership-type" : "a2:b",
+        "status" : "d2:e", 
+        "city" : "g2:h",
+        "pay-method" : "j2:k",
+        "members" : "n1",
+        "unpaid-members" : "n3"
+    }
+}
+
 const M_SETTINGS_TABLE_NAME = M_TABLES.settings
 const M_SETTINGS_TABLE = MEMBERS_DB.getSheetByName(M_SETTINGS_TABLE_NAME)
+const M_MEMBERS_TABLE_NAME = M_TABLES.directory
+const M_MEMBERS_TABLE = MEMBERS_DB.getSheetByName(M_MEMBERS_TABLE_NAME)
+const M_MEMBERS_TABLE_HDRS = 2
+const M_DASHBOARD_TABLE_NAME = M_TABLES.dashboard
+const M_DASHBOARD_TABLE = MEMBERS_DB.getSheetByName(M_DASHBOARD_TABLE_NAME)
 
 function getStatusList() {
     let list = M_SETTINGS_TABLE
@@ -48,4 +65,37 @@ function getMembershipTypeList() {
         .getDisplayValues()
     list = list.map(l => l[0]) // convert from [][] to []
     return list.filter(l => l!=="") // remove empty array elements
+}
+
+/**
+ * Gets six columns from the membership spreadsheet. All columns are combined
+ * into one array for each member
+ *
+ * @returns {array} member email, first name, last name, status, phone, membership type
+ */
+ function getMemberInfo() {
+    let lastRow = M_MEMBERS_TABLE.getLastRow();
+    let firstRow = M_MEMBERS_TABLE_HDRS + 1; 
+    let memberInfoList = M_MEMBERS_TABLE.getRangeList([
+        'A'+firstRow+':C'+lastRow, 
+        'E'+firstRow+':E'+lastRow, 
+        'K'+firstRow+':K'+lastRow, 
+        'M'+firstRow+':M'+lastRow
+    ]); 
+    let ranges = memberInfoList.getRanges();
+    let colEmailName = ranges[0].getValues();
+    let colStatus = ranges[1].getValues();
+    let colPhone = ranges[2].getValues();
+    let colMembership = ranges[3].getValues();
+    let colCombined = [];
+
+    for (x=0; x<ranges[0].getValues().length; x++) {
+      colCombined.push([...colEmailName[x], ...colStatus[x], ...colPhone[x], ...colMembership[x]]);
+    }
+    return colCombined; 
+}
+
+function getTotalMembers() {
+    let count = M_DASHBOARD_TABLE.getRange(M_DASHBOARD_FIELDS_MAP["counts"]["members"]).getDisplayValue()
+    return parseInt(count)
 }
